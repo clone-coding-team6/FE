@@ -1,18 +1,37 @@
-import api from "./axios";
+import api from "./instance";
 
-export const getPosts = async (date) => {
-  
-    try {
-      
-      const response = await api.get("/posts/todo", {
-        params: { date: date },
-        
-      });
-      
-      return response.data;
-  
-    } catch (error) {
-      console.log(error);
+const makeHeaders = (accessToken) => {
+  return { Authorization: `Bearer  ${accessToken}` };
+};
+
+export const signup = async (newUser) => {
+  try {
+    const res = await api.post(
+      `${process.env.REACT_APP_SERVER_URL}/api/users/signup`,
+      newUser
+    );
+    return res;
+  } catch (err) {
+    if (api.isAxiosError(err)) {
+      alert(`Error : ${err.response?.data.msg}`);
+      return;
     }
-   
-  };
+    console.error("비처리에러 : ", err);
+  }
+};
+
+export const login = async (user) => {
+  try {
+    const res = await api.post(
+      `${process.env.REACT_APP_SERVER_URL}/api/users/login`,
+      user
+    );
+    return res;
+  } catch (err) {
+    if (api.isAxiosError(err)) {
+      alert(`Error : ${err.response?.data.msg}`);
+      return;
+    }
+    console.error("비처리에러 : ", err);
+  }
+};

@@ -1,11 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import postSlice from "../modules/dateSlice";
+import postSlice from "../modules/PostSlice";
 
 // TO-BE
-const store = configureStore({
+export const store = configureStore({
   reducer: {
-    postSlice,
+    newpost : postSlice,
   },
 });
 
-export default store;
