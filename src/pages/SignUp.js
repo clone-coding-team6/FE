@@ -18,6 +18,14 @@ const Signup = () => {
     password: '',
   });
   const { email, nickname, password } = signupVal;
+  
+  const [usernameInput, setUsernameInput] = useState("");
+  const [nicknameInput, setNicknameInput] = useState("");
+  const [passwordInput, setPasswordInput] = useState("");
+
+  const regUsername = /^[a-z0-9]{4,10}$/; //영어 소문자와 숫자로 이루어진 문자열 중 길이가 4 이상 10 이하
+  const regNickname = /^[ㄱ-ㅎ|가-힣A-Za-z0-9]{2,10}$/; //한글, 영어 대소문자, 숫자로 이루어진 문자열 중 길이가 2 이상 10 이하
+  const regPassword = /^[a-zA-Z0-9\\d`~!@#$%^&()-_=+]{8,24}$/; //대소문자, 숫자, 특수문자( `~!@#$%^&()-_=+)로 이루어진 문자열 중 길이가 8 이상 24 이하
 
   const { mutate } = useMutation(signup, {
     onSuccess: (response) => {
@@ -30,6 +38,31 @@ const Signup = () => {
   });
 
   const handleChange = (e) => {
+
+    const { name, value } = e.target;
+    if (name === "username") {
+      if (!regUsername.test(value)) { //정규표현식 객체의 메소드,Boolean 값으로 반환
+        setUsernameInput("아이디는 소문자 4-10자 이내 입니다.");
+      } else {
+        setUsernameInput("");
+      }
+    }
+  
+    if (name === "nickname") {
+      if (!regNickname.test(value)) {
+        setNicknameInput("닉네임은 2-10자 이내입니다.");
+      } else {
+        setNicknameInput("");
+      }
+    }
+  
+    if (name === "password") {
+      if (!regPassword.test(value)) {
+        setPasswordInput("비밀번호는 대소문자 8-24자 이내입니다.");
+      } else {
+        setPasswordInput("");
+      }
+    }
     setSignupVal({ ...signupVal, [e.target.name]: e.target.value });
   };
 
