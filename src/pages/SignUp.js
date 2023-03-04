@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { ReactComponent as IconLogo } from '../assets/icon/icon-logo.svg';
 import { colors } from '../assets/theme/theme';
 import { signup } from "./../api/axios";
+import { AiOutlineCheckCircle, AiOutlineCloseCircle } from 'react-icons/ai';
 
 const Signup = () => {
 
@@ -13,24 +14,25 @@ const Signup = () => {
   const [errorMsg, setErrorMsg] = useState('');
   const [disabledBtn, setDisabledBtn] = useState(true);
   const [signupVal, setSignupVal] = useState({
-    email: '',
+    useremail: '',
     nickname: '',
     password: '',
   });
-  const { email, nickname, password } = signupVal;
+  const { useremail, nickname, password } = signupVal;
   
-  const [usernameInput, setUsernameInput] = useState("");
-  const [nicknameInput, setNicknameInput] = useState("");
-  const [passwordInput, setPasswordInput] = useState("");
+  const [emailIcon, setEmailIcon] = useState(null);
+  const [nicknameIcon, setNicknameIcon] = useState(null);
+  const [passwordIcon, setPasswordIcon] = useState(null);
 
-  const regUsername = /^[a-z0-9]{4,10}$/; //영어 소문자와 숫자로 이루어진 문자열 중 길이가 4 이상 10 이하
+
+  
   const regNickname = /^[ㄱ-ㅎ|가-힣A-Za-z0-9]{2,10}$/; //한글, 영어 대소문자, 숫자로 이루어진 문자열 중 길이가 2 이상 10 이하
   const regPassword = /^[a-zA-Z0-9\\d`~!@#$%^&()-_=+]{8,24}$/; //대소문자, 숫자, 특수문자( `~!@#$%^&()-_=+)로 이루어진 문자열 중 길이가 8 이상 24 이하
 
   const { mutate } = useMutation(signup, {
     onSuccess: (response) => {
       if (response) {
-        signupVal({ username: "", nickname: "", password: "" }); 
+        signupVal({ useremail: "", nickname: "", password: "" }); 
         alert("회원가입 성공!");
         navigate("/");
       }
@@ -40,27 +42,30 @@ const Signup = () => {
   const handleChange = (e) => {
 
     const { name, value } = e.target;
-    if (name === "username") {
-      if (!regUsername.test(value)) { //정규표현식 객체의 메소드,Boolean 값으로 반환
-        setUsernameInput("아이디는 소문자 4-10자 이내 입니다.");
+     if (name === 'useremail') {
+      
+      if (!value.includes("@")) {
+        setEmailIcon(<CloseCircle color="red" />);
       } else {
-        setUsernameInput("");
+        setEmailIcon(<CheckCircle color="green" />);
       }
     }
-  
-    if (name === "nickname") {
+
+    if (name === 'nickname') {
+      
       if (!regNickname.test(value)) {
-        setNicknameInput("닉네임은 2-10자 이내입니다.");
+        setNicknameIcon(<CloseCircle color="red" />);
       } else {
-        setNicknameInput("");
+        setNicknameIcon(<CheckCircle color="green" />);
       }
     }
-  
-    if (name === "password") {
+
+    if (name === 'password') {
+      
       if (!regPassword.test(value)) {
-        setPasswordInput("비밀번호는 대소문자 8-24자 이내입니다.");
+        setPasswordIcon(<CloseCircle color="red" />);
       } else {
-        setPasswordInput("");
+        setPasswordIcon(<CheckCircle color="green" />);
       }
     }
     setSignupVal({ ...signupVal, [e.target.name]: e.target.value });
@@ -73,7 +78,7 @@ const Signup = () => {
   };
 
   useEffect(() => {
-    if (email !== '' && nickname !== '' && password.length > 3) {
+    if (useremail !== '' && nickname !== '' && password.length > 3 && useremail.includes("@")) {
       setDisabledBtn(false);
     } else {
       setDisabledBtn(true);
@@ -88,18 +93,25 @@ const Signup = () => {
         </LogoBox>
         <SignupText>친구들의 사진과 동영상을 보려면 가입하세요</SignupText>
         <InputBox>
+        <ButtonWrapper>
           <Input
             placeholder='이메일 주소'
-            name='email'
-            value={email}
+            name='useremail'
+            value={useremail}
             onChange={handleChange}
           />
+          {emailIcon}
+        </ButtonWrapper>
+        <ButtonWrapper>
           <Input
             placeholder='사용자 이름'
             name='nickname'
             value={nickname}
             onChange={handleChange}
           />
+          {nicknameIcon }
+        </ButtonWrapper>
+        <ButtonWrapper>
           <Input
             placeholder='비밀번호'
             type='password'
@@ -107,6 +119,8 @@ const Signup = () => {
             value={password}
             onChange={handleChange}
           />
+          {passwordIcon}
+        </ButtonWrapper>
           <ErrorMsg>{errorMsg}</ErrorMsg>
           {/* {errorMsg !== '' ? (
             <ErrorMsg>{errorMsg}</ErrorMsg>
@@ -147,6 +161,7 @@ const SignupBox = styled.form`
 `;
 
 const InputBox = styled.div`
+  margin-left: 5px;
   margin-top: 36px;
   display: flex;
   align-items: center;
@@ -155,10 +170,11 @@ const InputBox = styled.div`
 `;
 
 const Input = styled.input`
+  position: relative;
   border: none;
   outline: 1px solid ${colors.border};
-  width: 250px;
-  height: 40px;
+  width: 500px;
+  height: 30px;
   margin-bottom: 8px;
   padding: 10px;
   font-size: 12px;
@@ -167,6 +183,13 @@ const Input = styled.input`
   &:focus {
     outline: 1px solid #adadad;
   }
+`;
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  
+  width: 250px;
 `;
 
 const SignupButton = styled.button`
@@ -212,7 +235,7 @@ const ErrorMsg = styled.p`
 
 const LoginBox = styled.div`
   background-color: white;
-  width: 350px;
+  width: 310px;
   padding: 20px;
   border: 1px solid ${colors.border};
   margin-top: 10px;
@@ -226,3 +249,18 @@ const LoginBox = styled.div`
     cursor: pointer;
   }
 `;
+
+const CloseCircle = styled(AiOutlineCloseCircle)`
+  position: relative;
+  right: 20px;
+  font-size: 36px;
+  bottom: 2px;
+`;
+
+const CheckCircle = styled(AiOutlineCheckCircle)`
+  position: relative;
+  right: 20px;
+  bottom: 2px;
+  font-size: 36px;
+`;
+

@@ -10,13 +10,12 @@ import { login } from "./../api/axios";
 
 
 
-
 const Login = () => {
 
     const navigate = useNavigate();
     const [_, setCookie] = useCookies(["Access-Token"]);
     const [user, setUser] = useState({
-      email: "",
+      useremail: "",
       password: "",
     });
     const [disabledBtn, setDisabledBtn] = useState(true);
@@ -43,14 +42,14 @@ const Login = () => {
     const onSubmitHandler = async (e) => {
       e.preventDefault();  
       mutate(user);
-      setUser({ user: "", password: "" });
+      setUser({ useremail: "", password: "" });
     };
 
     useEffect(() => {
-      if (user.email.trim() === "" || user.password.trim() === "") {
-        setDisabledBtn(false);
-      } else {
+      if (user.useremail.trim() === "" || user.password.trim() === "") {
         setDisabledBtn(true);
+      } else {
+        setDisabledBtn(false);
       }
     }, [user]);
     
@@ -66,8 +65,8 @@ const Login = () => {
                 <Input
                   placeholder='사용자 이메일'
                   type='text'
-                  name='email'
-                  value={user.email || ""}
+                  name='useremail'
+                  value={user.useremail || ""}
                   onChange={onChangeHandler}
                 />
                 <Input
@@ -83,7 +82,7 @@ const Login = () => {
                 {/* {errorMsg !== '' ? (
                   <ErrorMsg>{errorMsg}</ErrorMsg>
                 ) : null} */}
-                <ErrorMsg>s</ErrorMsg>
+                {/* <ErrorMsg></ErrorMsg> */}
               </LoginBox>
     
               <SignupBox>
@@ -144,7 +143,7 @@ const Input = styled.input`
   border: none;
   outline: 1px solid ${colors.border};
   width: 250px;
-  height: 40px;
+  height: 30px;
   margin-bottom: 7px;
   padding: 10px;
   font-size: 12px;
