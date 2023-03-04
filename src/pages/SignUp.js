@@ -32,7 +32,7 @@ const Signup = () => {
   const { mutate } = useMutation(signup, {
     onSuccess: (response) => {
       if (response) {
-        signupVal({ useremail: "", nickname: "", password: "" }); 
+        setSignupVal({ useremail: "", nickname: "", password: "" }); 
         alert("회원가입 성공!");
         navigate("/");
       }

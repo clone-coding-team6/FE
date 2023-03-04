@@ -7,6 +7,7 @@ import loginImg from './../assets/img/img-login.png';
 import { ReactComponent as IconLogo } from '../assets/icon/icon-logo.svg';
 import { colors } from '../assets/theme/theme';
 import { login } from "./../api/axios";
+import Navbar from '../components/Navbar';
 
 
 
