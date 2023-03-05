@@ -19,6 +19,7 @@
     "react-scripts": "5.0.1",
     "redux": "^4.2.1",
     "styled-components": "^5.3.8",
+    "uncontrollable": "^7.2.1",
     "web-vitals": "^2.1.0"
   },
   "scripts": {
