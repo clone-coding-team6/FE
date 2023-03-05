@@ -7,20 +7,16 @@ import Sidebar from "../Navbar/Sidebar";
 //컴포함수시작
 const MypageLayout = () => {
   const [posts, setPosts] = useState([
-    { id: 1, src: "https://via.placeholder.com/300x300" },
-    { id: 2, src: "https://via.placeholder.com/300x300" },
-    { id: 3, src: "https://via.placeholder.com/300x300" },
-    { id: 4, src: "https://via.placeholder.com/300x300" },
-    { id: 5, src: "https://via.placeholder.com/300x300" },
-    { id: 6, src: "https://via.placeholder.com/300x300" },
-    { id: 7, src: "https://via.placeholder.com/300x300" },
-    { id: 8, src: "https://via.placeholder.com/300x300" },
-    { id: 9, src: "https://via.placeholder.com/300x300" },
-    { id: 10, src: "https://via.placeholder.com/300x300" },
-    { id: 11, src: "https://via.placeholder.com/300x300" },
-    { id: 12, src: "https://via.placeholder.com/300x300" },
+    { id: 1, src: "https://via.placeholder.com/300x300", likes: 10, comments: 5 },
+    { id: 2, src: "https://via.placeholder.com/300x300", likes: 5, comments: 2 },
+    { id: 3, src: "https://via.placeholder.com/300x300", likes: 8, comments: 3 },
+    { id: 4, src: "https://via.placeholder.com/300x300", likes: 2, comments: 1 },
+    { id: 5, src: "https://via.placeholder.com/300x300", likes: 12, comments: 4 },
+    { id: 6, src: "https://via.placeholder.com/300x300", likes: 7, comments: 2 },
+    { id: 7, src: "https://via.placeholder.com/300x300", likes: 3, comments: 1 },
+    { id: 8, src: "https://via.placeholder.com/300x300", likes: 6, comments: 2 },
+    { id: 9, src: "https://via.placeholder.com/300x300", likes: 9, comments: 3 },
   ]);
-
   return (
     <>
       <Sidebar />
@@ -131,6 +127,13 @@ const PostWrapper = styled.div`
 const PostImg = styled.img`
   width: 100%;
   height: auto;
+  opacity: 1;
+  transition: opacity 0.2s ease-in-out;
+
+  &:hover {
+    opacity: 0.8;
+    cursor: pointer;
+  }
 `;
 
 const Separator = styled.hr`
