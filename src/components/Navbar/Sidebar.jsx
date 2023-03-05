@@ -11,6 +11,24 @@ import { TbSquareRoundedPlus } from "react-icons/tb";
 import { BiUserCircle } from "react-icons/bi";
 import styled from "styled-components";
 
+const menuItems = [
+  {
+    label: "홈",
+    icon: <MdHomeFilled fontSize="35px" color="white" />,
+    to: "/home",
+  },
+  {
+    label: "만들기",
+    icon: <TbSquareRoundedPlus fontSize="35px" color="white" />,
+    to: "/create",
+  },
+  {
+    label: "프로필",
+    icon: <BiUserCircle fontSize="35px" color="white" />,
+    to: "/profile",
+  },
+];
+
 const Sidebar = () => {
   const classes = useStyles();
 
@@ -31,32 +49,14 @@ const Sidebar = () => {
             </ListItem>
           </div>
 
-          <div style={{ margin: "40px 0" }}>
-            <ListItem button component={Link} to="/home">
-              <ListItemIcon>
-                <HomeIcon />
-              </ListItemIcon>
-              <ListItemText primary="홈" />
-            </ListItem>
-          </div>
-
-          <div style={{ margin: "40px 0" }}>
-            <ListItem button component={Link} to="/create">
-              <ListItemIcon>
-                <PulsIcon />
-              </ListItemIcon>
-              <ListItemText primary="만들기" />
-            </ListItem>
-          </div>
-
-          <div style={{ margin: "40px 0" }}>
-            <ListItem button component={Link} to="/profile">
-              <ListItemIcon>
-                <ProfileIcon />
-              </ListItemIcon>
-              <ListItemText primary="프로필" />
-            </ListItem>
-          </div>
+          {menuItems.map((item) => (
+            <div style={{ margin: "40px 0" }} key={item.label}>
+              <ListItem button component={Link} to={item.to}>
+                <ListItemIcon>{item.icon}</ListItemIcon>
+                <ListItemText primary={item.label} />
+              </ListItem>
+            </div>
+          ))}
         </List>
       </Drawer>
     </div>
@@ -65,8 +65,8 @@ const Sidebar = () => {
 
 export default Sidebar;
 
-//CSS
-const drawerWidth = 200;
+// CSS
+const drawerWidth = 300;
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -79,28 +79,13 @@ const useStyles = makeStyles((theme) => ({
     width: drawerWidth,
     backgroundColor: "#000000", // 배경색을 검정색으로 설정
     color: "#ffffff",
+    borderRight: "1px solid #88848496;",
   },
   toolbar: theme.mixins.toolbar,
 }));
 
-const HomeIcon = styled(MdHomeFilled)`
-  font-size: 37px;
-  color: #ffffff;
-`;
-
-const PulsIcon = styled(TbSquareRoundedPlus)`
-  font-size: 40px;
-  color: #ffffff;
-`;
-
-const ProfileIcon = styled(BiUserCircle)`
-  font-size: 40px;
-  color: #ffffff;
-`;
-
 const Logo = styled.img`
   width: 105px;
   height: 30px;
-
   margin-bottom: 40px;
 `;

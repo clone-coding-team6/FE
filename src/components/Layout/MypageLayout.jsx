@@ -136,6 +136,6 @@ const PostImg = styled.img`
 const Separator = styled.hr`
   margin: 40px 0;
   border: none;
-  border-bottom: 2px solid #888484;
+  border-bottom: 2px solid #88848476;
   width: 950px;
 `;
