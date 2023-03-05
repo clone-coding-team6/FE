@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import styled from "styled-components";
 import { FaUserCircle } from "react-icons/fa";
+import Sidebar from "../Navbar/Sidebar";
 
 //컴포함수시작
 const MypageLayout = () => {
@@ -21,28 +22,30 @@ const MypageLayout = () => {
   ]);
 
   return (
-    <MyPageWrapper>
-      <ProfileWrapper>
-        <ProfileImg src="https://via.placeholder.com/100x100" />
+    <>
+      <Sidebar />
+      <MyPageWrapper>
+        <ProfileWrapper>
+          <ProfileImg src="https://via.placeholder.com/100x100" />
 
-        <ProfileInfoWrapper>
-          <ProfileName>Juaeworld</ProfileName>
-          <ProfileFollow>
-            {" "}
-            <span>게시물12</span> <span>팔로워 100</span>
-            <span>팔로우 100</span>
-          </ProfileFollow>
-          <Usernick>주애(32)</Usernick>
-        </ProfileInfoWrapper>
-      </ProfileWrapper>
-      <Separator />
+          <ProfileInfoWrapper>
+            <ProfileName>Juaeworld_</ProfileName>
+            <ProfileFollow>
+              <span>게시물12</span> <span>팔로워 10</span>
+              <span>팔로우 10</span>
+            </ProfileFollow>
+            <Usernick>주애(32)</Usernick>
+          </ProfileInfoWrapper>
+        </ProfileWrapper>
+        <Separator />
 
-      <PostWrapper>
-        {posts.map((post) => (
-          <PostImg key={post.id} src={post.src} />
-        ))}
-      </PostWrapper>
-    </MyPageWrapper>
+        <PostWrapper>
+          {posts.map((post) => (
+            <PostImg key={post.id} src={post.src} />
+          ))}
+        </PostWrapper>
+      </MyPageWrapper>
+    </>
   );
 };
 
@@ -73,8 +76,8 @@ const ProfileWrapper = styled.div`
 
 //프로필사진
 const ProfileImg = styled(FaUserCircle)`
-  width: 180px;
-  height: 180px;
+  width: 150px;
+  height: 150px;
   color: #fff; /* 아이콘 색 밝은색으로 변경 */
   background-color: #000; /* 아이콘 바탕색 검정색으로 변경 */
   position: absolute; /* 절대 위치 설정 */
