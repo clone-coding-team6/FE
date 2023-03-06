@@ -169,7 +169,7 @@ const CommentList = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: ${(props) => (props.isEmpty ? "center" : "flex-start")};
-  align-items: center;
+  align-items: flex-start;
   text-align: center;
   font-size: 14px;
   color: #ffffff;

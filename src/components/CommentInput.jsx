@@ -10,7 +10,7 @@ function CommentInput({ value, onChange, placeholder, onSubmit }) {
   }
 
   return (
-    <StyledForm onSubmit={onSubmit}>
+    <div>
       <StyledInput
         type="text"
         value={value}
@@ -18,15 +18,10 @@ function CommentInput({ value, onChange, placeholder, onSubmit }) {
         placeholder={placeholder}
         onKeyPress={handleKeyPress}
       />
-      <CommentButton type="submit" />
-    </StyledForm>
+      <CommentButton onClick={onSubmit} />
+    </div>
   );
 }
-
-const StyledForm = styled.form`
-  display: flex;
-  flex-direction: row;
-`;
 
 const StyledInput = styled.input`
   flex-grow: 1;
