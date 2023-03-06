@@ -3,20 +3,38 @@ import { useState } from "react";
 import styled from "styled-components";
 import { FaUserCircle } from "react-icons/fa";
 import Sidebar from "../Navbar/Sidebar";
+import MypageModal from "../Modal/MypageModal";
 
-//컴포함수시작
 const MypageLayout = () => {
   const [posts, setPosts] = useState([
-    { id: 1, src: "https://via.placeholder.com/300x300", likes: 10, comments: 5 },
-    { id: 2, src: "https://via.placeholder.com/300x300", likes: 5, comments: 2 },
-    { id: 3, src: "https://via.placeholder.com/300x300", likes: 8, comments: 3 },
-    { id: 4, src: "https://via.placeholder.com/300x300", likes: 2, comments: 1 },
-    { id: 5, src: "https://via.placeholder.com/300x300", likes: 12, comments: 4 },
-    { id: 6, src: "https://via.placeholder.com/300x300", likes: 7, comments: 2 },
-    { id: 7, src: "https://via.placeholder.com/300x300", likes: 3, comments: 1 },
-    { id: 8, src: "https://via.placeholder.com/300x300", likes: 6, comments: 2 },
-    { id: 9, src: "https://via.placeholder.com/300x300", likes: 9, comments: 3 },
+    {
+      postId: 1,
+      imageList: "https://img.seoul.co.kr//img/upload/2023/02/02/SSC_20230202065007_V.jpg",
+      postLikeCount: 10,
+      commentList: 5,
+    },
+    {
+      postId: 2,
+      imageList:
+        "https://search.pstatic.net/common/?src=http%3A%2F%2Fimgnews.naver.net%2Fimage%2F020%2F2022%2F10%2F25%2F0003458220_001_20221025135701071.jpg&type=a340",
+      postLikeCount: 5,
+      commentList: 2,
+    },
+    {
+      postId: 3,
+      imageList:
+        "https://search.pstatic.net/common/?src=http%3A%2F%2Fimgnews.naver.net%2Fimage%2F5809%2F2020%2F09%2F21%2F0000002895_002_20200921090938169.jpg&type=a340",
+      postLikeCount: 8,
+      commentList: 3,
+    },
+    { postId: 4, imageList: "https://via.placeholder.com/300x300", postLikeCount: 2, commentList: 1 },
+    { postId: 5, imageList: "https://via.placeholder.com/300x300", postLikeCount: 12, commentList: 4 },
+    { postId: 6, imageList: "https://via.placeholder.com/300x300", postLikeCount: 7, commentList: 2 },
+    { postId: 7, imageList: "https://via.placeholder.com/300x300", postLikeCount: 3, commentList: 1 },
+    { postId: 8, imageList: "https://via.placeholder.com/300x300", postLikeCount: 6, commentList: 2 },
+    { postId: 9, imageList: "https://via.placeholder.com/300x300", postLikeCount: 9, commentList: 3 },
   ]);
+
   return (
     <>
       <Sidebar />
@@ -37,17 +55,16 @@ const MypageLayout = () => {
 
         <PostWrapper>
           {posts.map((post) => (
-            <PostImg key={post.id} src={post.src} />
+            <MypageModal key={post.postId} imageUrl={post.imageList} />
           ))}
         </PostWrapper>
       </MyPageWrapper>
     </>
   );
 };
-
 export default MypageLayout;
 
-//스타일컴포넌트
+//////////////////////스타일컴포넌트///////////////////////////////
 
 //마이페이지전체
 const MyPageWrapper = styled.div`
@@ -125,8 +142,9 @@ const PostWrapper = styled.div`
 `;
 
 const PostImg = styled.img`
-  width: 100%;
-  height: auto;
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
   opacity: 1;
   transition: opacity 0.2s ease-in-out;
 
