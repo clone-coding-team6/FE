@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
 import styled from "styled-components";
+import { CommentInput, CommentButton } from "../CommentInput";
+import CommentDel from "../CommentDel";
 
 const customStyles = {
   content: {
@@ -19,7 +21,7 @@ const customStyles = {
   },
   overlay: {
     backgroundColor: "rgba(0, 0, 0, 0.5)",
-    zIndex: "1000",
+    zIndex: "1200",
   },
 };
 
@@ -53,6 +55,10 @@ function MypageModal({ imageUrl }) {
     }
   }
 
+  function handleCommentDelete(commentId) {
+    setComments(comments.filter((comment) => comment.id !== commentId));
+  }
+
   return (
     <div>
       <PostImgStyled src={imageUrl} onClick={openModal} />
@@ -75,18 +81,13 @@ function MypageModal({ imageUrl }) {
                 ) : (
                   comments.map((comment) => (
                     <Comment key={comment.id}>
-                      <ProfileImg src={comment.user.profileImageUrl} />
-                      <CommentText>{comment.text}</CommentText>
+                      <CommentDel comment={comment} onDelete={handleCommentDelete} />
                     </Comment>
                   ))
                 )}
                 <CommentForm onSubmit={handleCommentFormSubmit}>
-                  <CommentInput
-                    placeholder="댓글달기 ..."
-                    value={newCommentText}
-                    onChange={handleNewCommentTextChange}
-                  />
-                  <CommentButton>게시</CommentButton>
+                  <CommentInput value={newCommentText} onChange={handleNewCommentTextChange} placeholder="댓글..." />
+                  <CommentButton onClick={handleCommentFormSubmit}>게시</CommentButton>
                 </CommentForm>
               </CommentList>
             </CommentSection>
@@ -96,6 +97,7 @@ function MypageModal({ imageUrl }) {
     </div>
   );
 }
+
 const PostImgStyled = styled.img`
   width: 300px;
   height: 300px; /* height를 300px으로 고정 */
@@ -161,25 +163,6 @@ const CommentForm = styled.form`
   margin-bottom: 0;
   margin-top: 10px;
 `;
-const CommentInput = styled.input`
-  flex-grow: 1;
-  padding: 8px;
-  border: none;
-  width: 250px;
-  background-color: #fffdfd;
-`;
-
-const CommentButton = styled.button`
-  margin-left: 10px;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 8px;
-  background-color: #000;
-  color: #fff;
-  font-size: 14px;
-  font-weight: bold;
-  cursor: pointer;
-`;
 
 const CommentList = styled.div`
   flex-grow: 1;
@@ -200,7 +183,4 @@ const Comment = styled.div`
   font-size: 14px;
 `;
 
-const CommentText = styled.span`
-  margin-left: 10px;
-`;
 export default MypageModal;
