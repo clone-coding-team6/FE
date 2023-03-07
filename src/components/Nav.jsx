@@ -1,47 +1,47 @@
-import { ReactComponent as Logo } from '../../assets/icon/icon-logo.svg';
-import { ReactComponent as IconHome } from '../../assets/icon/icon-home.svg';
-import { ReactComponent as IconAdd } from '../../assets/icon/icon-add.svg';
+import { ReactComponent as Logo } from '../assets/icon/icon-logo.svg';
+import { ReactComponent as IconHome } from '../assets/icon/icon-home.svg';
+import { ReactComponent as IconAdd } from '../assets/icon/icon-add.svg';
 import { Row, Col } from 'react-bootstrap';
-import Container from 'react-bootstrap/Container';
-// import defaultImg from '../assets/img/img-profile.jpg';
-// import Layout from '../Layout/Layout';
+import defaultImg from '../assets/img/img-profile.jpg';
+import Layout from '../Layout/Layout';
 import styled from 'styled-components';
-// import SearchBox from './SearchBox';
-import { colors } from '../../assets/theme/theme';
+import SearchBox from './SearchBox';
+import { colors } from '../theme/theme';
 import { useNavigate } from 'react-router-dom';
 
-const Navbar = () => {
+const Nav = ({ onClickAddPost }) => {
   const navigate = useNavigate();
+
   return (
     <NavContainer>
-      <MyContainer>
+      <Layout>
         <LayoutRow>
           <Col>
             <Logo onClick={() => navigate('/')} style={{ cursor: 'pointer' }} />
+          </Col>
+          <Col>
+            <SearchBox />
           </Col>
           <NavCol>
             <IconContainer onClick={() => navigate('/')}>
               <IconHome />
             </IconContainer>
             <IconContainer>
-              <IconAdd />
+              <IconAdd onClick={onClickAddPost} />
             </IconContainer>
             <IconContainer onClick={() => navigate('/myfeed')}>
-              <img  alt='프로필사진' />
+              <img src={defaultImg} alt='프로필사진' />
             </IconContainer>
           </NavCol>
         </LayoutRow>
-      </MyContainer>
+      </Layout>
     </NavContainer>
   );
 };
-  
-  export default Navbar;
-  
-const MyContainer = styled(Container)`
-  max-width: 975px;
-`;
-  const NavContainer = styled.div`
+
+export default Nav;
+
+const NavContainer = styled.div`
   position: fixed;
   top: 0;
   z-index: 99;
@@ -69,9 +69,11 @@ const IconContainer = styled.div`
   height: 24px;
   display: inline-block;
   cursor: pointer;
+
   img {
     width: 100%;
   }
+
   & + & {
     margin-left: 22px;
   }
