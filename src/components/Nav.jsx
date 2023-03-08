@@ -1,16 +1,3 @@
-<<<<<<< HEAD:src/components/Navbar/index.js
-import { ReactComponent as Logo } from "../../assets/icon/icon-logo.svg";
-import { ReactComponent as IconHome } from "../../assets/icon/icon-home.svg";
-import { ReactComponent as IconAdd } from "../../assets/icon/icon-add.svg";
-import { Row, Col } from "react-bootstrap";
-import Container from "react-bootstrap/Container";
-// import defaultImg from '../assets/img/img-profile.jpg';
-// import Layout from '../Layout/Layout';
-import styled from "styled-components";
-// import SearchBox from './SearchBox';
-import { colors } from "../../assets/theme/theme";
-import { useNavigate } from "react-router-dom";
-=======
 import { ReactComponent as Logo } from '../assets/icon/icon-logo.svg';
 import { ReactComponent as IconHome } from '../assets/icon/icon-home.svg';
 import { ReactComponent as IconAdd } from '../assets/icon/icon-add.svg';
@@ -21,7 +8,6 @@ import styled from 'styled-components';
 import SearchBox from './SearchBox';
 import { colors } from '../theme/theme';
 import { useNavigate } from 'react-router-dom';
->>>>>>> 09e3ed26f2ad47e06f658253ad9fd324eada7a2f:src/components/Nav.jsx
 
 const Nav = ({ onClickAddPost }) => {
   const navigate = useNavigate();
