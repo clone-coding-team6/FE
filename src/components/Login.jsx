@@ -31,8 +31,9 @@ const Login = () => {
         `/api/users/login`,
         loginVal
       );
+      console.log(response);
       setCookie('ACCESS_TOKEN', response.headers.authorization);
-      setCookie('nickname', response.data);
+      setCookie('nickname', response.data.data);
       getCookie('ACCESS_TOKEN');
       navigate('/');
     } catch (error) {

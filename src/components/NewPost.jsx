@@ -16,9 +16,10 @@ import { getCookie } from '../shared/Cookie';
 
 const NewPost = ({ modalClose }) => {
   const nick = getCookie('nickname');
+  console.log(nick);
   const dispatch = useDispatch();
   const [formVal, setFormVal] = useState({
-    // nickname: nick,
+    nickname: nick,
     content: '',
   });
   const [files, setFiles] = useState([]);
@@ -52,7 +53,7 @@ const NewPost = ({ modalClose }) => {
     files.map((file, i) => {
       formData.append('file', files[i]);
     });
-    
+
     // files.forEach((file) => {
     //   formData.append('data', JSON.stringify(newFormVal));
     //   formData.append('file', file);
@@ -120,7 +121,7 @@ const NewPost = ({ modalClose }) => {
             <UserProfile>
               <img src={defaultImg} alt='유저 프로필'></img>
             </UserProfile>
-            {/* <StText>{nick}</StText> */}
+            <StText>{nick}</StText>
           </StNewPostName>
           <StTextarea
             placeholder='문구 입력...'

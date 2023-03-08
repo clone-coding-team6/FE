@@ -69,7 +69,7 @@ const MainCard = ({ article }) => {
           <ProfileImg>
             <img src={defaultImg} alt='프로필사진' />
           </ProfileImg>
-          <ProfileName>dd</ProfileName>
+          <ProfileName>{article.nickname}</ProfileName>
         </UserProfile>
         <IconContainer>
           <IconMore onClick={() => handleDetailPost(article.postId)} />
@@ -96,7 +96,7 @@ const MainCard = ({ article }) => {
       <CardFooter>
         <Icons>
           <IconContainer onClick={handleLikeButton}>
-            {like ? <IconHeart /> : <IconEmptyHeart />}
+            {article.liked ? <IconHeart /> : <IconEmptyHeart />}
           </IconContainer>
           <IconContainer>
             <IconComment />
@@ -108,7 +108,7 @@ const MainCard = ({ article }) => {
         <Contents>
           <LikeNum>좋아요 {article.postLikeCount}개</LikeNum>
           <Content>
-            <span>dd</span>
+            <span>{article.nickname}</span>
             {article.content.split('\n').map((line, i) => {
               return (
                 <React.Fragment key={i}>

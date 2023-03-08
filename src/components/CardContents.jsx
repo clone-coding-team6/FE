@@ -33,13 +33,14 @@ const CardContents = ({ oneArticle }) => {
     nickname,
     timeMsg,
     postLikeCount,
+    liked
   } = oneArticle;
 
   const handleLikeButton = () => {
     setLike(!like);
     dispatch(__likeArticle(postId));
   };
-  
+
   const handleAddComment = async () => {
     await dispatch(__createComment({ postId: postId, content: commentVal }));
     await dispatch(__readOneArticle(postId));
@@ -64,12 +65,12 @@ const CardContents = ({ oneArticle }) => {
                 style={{ width: '100%' }}
               />
             </UserImg>
-            <UserName>{nickname}</UserName>
+            <UserName>{nick}</UserName>
           </UserProfile>
           <IconContainer>
-            {/* {nick === nickname && ( */}
+            {nick === nickname && (
               <IconRemove onClick={() => onClickDeleteHandler(postId)} />
-            {/* )} */}
+            )}
           </IconContainer>
         </BoardHeader>
 
@@ -99,7 +100,7 @@ const CardContents = ({ oneArticle }) => {
       <BoardFooter>
         <Icons>
           <IconContainer onClick={handleLikeButton}>
-            {like ? <IconHeart /> : <IconEmptyHeart />}
+            {liked ? <IconHeart /> : <IconEmptyHeart />}
           </IconContainer>
           <IconContainer>
             <IconComment />
