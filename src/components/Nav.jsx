@@ -1,13 +1,13 @@
-import { ReactComponent as Logo } from '../assets/icon/icon-logo.svg';
-import { ReactComponent as IconHome } from '../assets/icon/icon-home.svg';
-import { ReactComponent as IconAdd } from '../assets/icon/icon-add.svg';
-import { Row, Col } from 'react-bootstrap';
-import defaultImg from '../assets/img/img-profile.jpg';
-import Layout from '../Layout/Layout';
-import styled from 'styled-components';
-import SearchBox from './SearchBox';
-import { colors } from '../theme/theme';
-import { useNavigate } from 'react-router-dom';
+import { ReactComponent as Logo } from "../assets/icon/icon-logo.svg";
+import { ReactComponent as IconHome } from "../assets/icon/icon-home.svg";
+import { ReactComponent as IconAdd } from "../assets/icon/icon-add.svg";
+import { Row, Col } from "react-bootstrap";
+import defaultImg from "../assets/img/img-profile.jpg";
+import Layout from "../Layout/Layout";
+import styled from "styled-components";
+import SearchBox from "./SearchBox";
+import { colors } from "../theme/theme";
+import { useNavigate } from "react-router-dom";
 
 const Nav = ({ onClickAddPost }) => {
   const navigate = useNavigate();
@@ -29,13 +29,8 @@ const Nav = ({ onClickAddPost }) => {
             <IconContainer>
               <IconAdd onClick={onClickAddPost} />
             </IconContainer>
-<<<<<<< HEAD:src/components/Navbar/index.js
             <IconContainer onClick={() => navigate("/myfeed")}>
-              <img alt="프로필사진" />
-=======
-            <IconContainer onClick={() => navigate('/myfeed')}>
-              <img src={defaultImg} alt='프로필사진' />
->>>>>>> 09e3ed26f2ad47e06f658253ad9fd324eada7a2f:src/components/Nav.jsx
+              <img src={defaultImg} alt="프로필사진" />
             </IconContainer>
           </NavCol>
         </LayoutRow>
@@ -44,16 +39,8 @@ const Nav = ({ onClickAddPost }) => {
   );
 };
 
-<<<<<<< HEAD:src/components/Navbar/index.js
-export default Navbar;
-
-const MyContainer = styled(Container)`
-  max-width: 975px;
-`;
-=======
 export default Nav;
 
->>>>>>> 09e3ed26f2ad47e06f658253ad9fd324eada7a2f:src/components/Nav.jsx
 const NavContainer = styled.div`
   position: fixed;
   top: 0;
