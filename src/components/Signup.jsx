@@ -1,84 +1,43 @@
 import { useState, useEffect } from 'react';
-import { useMutation } from "react-query";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import styled from 'styled-components';
 import { ReactComponent as IconLogo } from '../assets/icon/icon-logo.svg';
-import { colors } from '../assets/theme/theme';
-import { signup } from "./../api/axios";
-import { AiOutlineCheckCircle, AiOutlineCloseCircle } from 'react-icons/ai';
-
+import { colors } from '../theme/theme';
+import instance from "../api/instance";
 const Signup = () => {
-
   const navigate = useNavigate();
 
   const [errorMsg, setErrorMsg] = useState('');
+
   const [disabledBtn, setDisabledBtn] = useState(true);
   const [signupVal, setSignupVal] = useState({
-    useremail: '',
+    userEmail: '',
     nickname: '',
     password: '',
   });
-  const { useremail, nickname, password } = signupVal;
-  
-  const [emailIcon, setEmailIcon] = useState(null);
-  const [nicknameIcon, setNicknameIcon] = useState(null);
-  const [passwordIcon, setPasswordIcon] = useState(null);
-
-
-  
-  const regNickname = /^[ㄱ-ㅎ|가-힣A-Za-z0-9]{2,10}$/; //한글, 영어 대소문자, 숫자로 이루어진 문자열 중 길이가 2 이상 10 이하
-  const regPassword = /^[a-zA-Z0-9\\d`~!@#$%^&()-_=+]{8,24}$/; //대소문자, 숫자, 특수문자( `~!@#$%^&()-_=+)로 이루어진 문자열 중 길이가 8 이상 24 이하
-
-  const { mutate } = useMutation(signup, {
-    onSuccess: (response) => {
-      if (response) {
-        setSignupVal({ useremail: "", nickname: "", password: "" }); 
-        alert("회원가입 성공!");
-        navigate("/");
-      }
-    },
-  });
+  const { userEmail, nickname, password } = signupVal;
 
   const handleChange = (e) => {
-
-    const { name, value } = e.target;
-     if (name === 'useremail') {
-      
-      if (!value.includes("@")) {
-        setEmailIcon(<CloseCircle color="red" />);
-      } else {
-        setEmailIcon(<CheckCircle color="green" />);
-      }
-    }
-
-    if (name === 'nickname') {
-      
-      if (!regNickname.test(value)) {
-        setNicknameIcon(<CloseCircle color="red" />);
-      } else {
-        setNicknameIcon(<CheckCircle color="green" />);
-      }
-    }
-
-    if (name === 'password') {
-      
-      if (!regPassword.test(value)) {
-        setPasswordIcon(<CloseCircle color="red" />);
-      } else {
-        setPasswordIcon(<CheckCircle color="green" />);
-      }
-    }
     setSignupVal({ ...signupVal, [e.target.name]: e.target.value });
   };
 
-  const onSignupHandle = async (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
 
-    mutate(signupVal);
+    try {
+      const response = await instance.post(
+        `/api/users/signup`,
+        signupVal
+      );
+      navigate('/login');
+    } catch (error) {
+      setErrorMsg(error.response.data.errorMessage);
+    }
   };
 
   useEffect(() => {
-    if (useremail !== '' && nickname !== '' && password.length > 3 && useremail.includes("@")) {
+    if (userEmail !== '' && nickname !== '' && password.length > 3) {
       setDisabledBtn(false);
     } else {
       setDisabledBtn(true);
@@ -87,31 +46,24 @@ const Signup = () => {
 
   return (
     <SignupContainer>
-      <SignupBox >
+      <SignupBox onSubmit={handleSignup}>
         <LogoBox>
           <IconLogo />
         </LogoBox>
         <SignupText>친구들의 사진과 동영상을 보려면 가입하세요</SignupText>
         <InputBox>
-        <ButtonWrapper>
           <Input
             placeholder='이메일 주소'
-            name='useremail'
-            value={useremail}
+            name='userEmail'
+            value={userEmail}
             onChange={handleChange}
           />
-          {emailIcon}
-        </ButtonWrapper>
-        <ButtonWrapper>
           <Input
             placeholder='사용자 이름'
             name='nickname'
             value={nickname}
             onChange={handleChange}
           />
-          {nicknameIcon }
-        </ButtonWrapper>
-        <ButtonWrapper>
           <Input
             placeholder='비밀번호'
             type='password'
@@ -119,20 +71,18 @@ const Signup = () => {
             value={password}
             onChange={handleChange}
           />
-          {passwordIcon}
-        </ButtonWrapper>
           <ErrorMsg>{errorMsg}</ErrorMsg>
           {/* {errorMsg !== '' ? (
             <ErrorMsg>{errorMsg}</ErrorMsg>
           ) : null} */}
-          <SignupButton type='submit' disabled={disabledBtn} onClick={onSignupHandle}>
+          <SignupButton type='submit' disabled={disabledBtn}>
             가입
           </SignupButton>
         </InputBox>
       </SignupBox>
       <LoginBox>
         이미 계정이 있으신가요?{' '}
-        <span onClick={() => navigate('/')}>로그인</span>
+        <span onClick={() => navigate('/login')}>로그인</span>
       </LoginBox>
     </SignupContainer>
   );
@@ -161,7 +111,6 @@ const SignupBox = styled.form`
 `;
 
 const InputBox = styled.div`
-  margin-left: 5px;
   margin-top: 36px;
   display: flex;
   align-items: center;
@@ -170,26 +119,19 @@ const InputBox = styled.div`
 `;
 
 const Input = styled.input`
-  position: relative;
   border: none;
   outline: 1px solid ${colors.border};
-  width: 500px;
-  height: 30px;
+  width: 250px;
+  height: 40px;
   margin-bottom: 8px;
   padding: 10px;
   font-size: 12px;
   border-radius: 4px;
   background: #fafafa;
+
   &:focus {
     outline: 1px solid #adadad;
   }
-`;
-
-const ButtonWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  
-  width: 250px;
 `;
 
 const SignupButton = styled.button`
@@ -201,6 +143,7 @@ const SignupButton = styled.button`
   width: 250px;
   height: 30px;
   margin-top: 40px;
+
   &:disabled {
     background-color: #b2dffc;
   }
@@ -235,13 +178,14 @@ const ErrorMsg = styled.p`
 
 const LoginBox = styled.div`
   background-color: white;
-  width: 310px;
+  width: 350px;
   padding: 20px;
   border: 1px solid ${colors.border};
   margin-top: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
+
   span {
     color: ${colors.primary};
     margin-left: 4px;
@@ -249,18 +193,3 @@ const LoginBox = styled.div`
     cursor: pointer;
   }
 `;
-
-const CloseCircle = styled(AiOutlineCloseCircle)`
-  position: relative;
-  right: 20px;
-  font-size: 36px;
-  bottom: 2px;
-`;
-
-const CheckCircle = styled(AiOutlineCheckCircle)`
-  position: relative;
-  right: 20px;
-  bottom: 2px;
-  font-size: 36px;
-`;
-

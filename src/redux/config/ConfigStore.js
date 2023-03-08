@@ -1,10 +1,12 @@
-import { configureStore } from "@reduxjs/toolkit";
-import postSlice from "../modules/PostSlice";
+import { configureStore } from '@reduxjs/toolkit';
+import articleSlice from '../modules/articleSlice';
+import userSlice from '../modules/userSlice';
+import commentSlice from '../modules/commentSlice';
 
-// TO-BE
 export const store = configureStore({
   reducer: {
-    newpost : postSlice,
+    article: articleSlice,
+    user: userSlice,
+    comment: commentSlice,
   },
 });
-
