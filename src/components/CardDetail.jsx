@@ -22,7 +22,6 @@ const CardDetail = ({ article }) => {
 // const queryKey = "getcardone_" + articleId;
 // const { data, error, isLoading } = useQuery(queryKey,()=> getCardOne(articleId), {
 //   onSuccess: () => {
-        
 //       },
 //       onError: () => {
 //         console.log('error')

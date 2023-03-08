@@ -34,7 +34,7 @@ const RecommendMember = () => {
           <ProfileContainer>
             <img src={defaultImg} alt='프로필 사진' />
           </ProfileContainer>
-          <StText black>SengRyel</StText>
+          <StText black>SeungRyeol</StText>
         </StRecommend>
         <StText>팔로우</StText>
       </StRecommendBox>
@@ -44,7 +44,7 @@ const RecommendMember = () => {
           <ProfileContainer>
             <img src={defaultImg} alt='프로필 사진' />
           </ProfileContainer>
-          <StText black>yehsuh</StText>
+          <StText black>yehSeok</StText>
         </StRecommend>
         <StText>팔로우</StText>
       </StRecommendBox>
@@ -54,7 +54,7 @@ const RecommendMember = () => {
           <ProfileContainer>
             <img src={defaultImg} alt='프로필 사진' />
           </ProfileContainer>
-          <StText black>Minsung</StText>
+          <StText black>minSung</StText>
         </StRecommend>
         <StText>팔로우</StText>
       </StRecommendBox>

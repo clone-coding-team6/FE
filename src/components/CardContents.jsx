@@ -24,7 +24,7 @@ const CardContents = ({ oneArticle }) => {
   const [commentVal, setCommentVal] = useState('');
   const [like, setLike] = useState(false);
   const nick = getCookie('nickname');
-
+  
   const {
     postId,
     commentList,
@@ -39,7 +39,7 @@ const CardContents = ({ oneArticle }) => {
     setLike(!like);
     dispatch(__likeArticle(postId));
   };
-
+  
   const handleAddComment = async () => {
     await dispatch(__createComment({ postId: postId, content: commentVal }));
     await dispatch(__readOneArticle(postId));
@@ -67,9 +67,9 @@ const CardContents = ({ oneArticle }) => {
             <UserName>{nickname}</UserName>
           </UserProfile>
           <IconContainer>
-            {nick === nickname && (
+            {/* {nick === nickname && ( */}
               <IconRemove onClick={() => onClickDeleteHandler(postId)} />
-            )}
+            {/* )} */}
           </IconContainer>
         </BoardHeader>
 

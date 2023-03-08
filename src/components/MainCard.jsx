@@ -26,6 +26,7 @@ const MainCard = ({ article }) => {
   const [articleId, setArticleId] = useState(0);
   const [isDetail, setIsDetail] = useState(false);
   const [like,setLiked] = useState(false);
+  
   // const {
   //   postId,
   //   commentList,
@@ -41,7 +42,7 @@ const MainCard = ({ article }) => {
   console.log('MainCard article!!', article);
 
   const handleLikeButton = () => {
-    setLiked(true);
+    setLiked(!like);
     dispatch(__likeArticle(article.postId));
   };
 
@@ -107,7 +108,7 @@ const MainCard = ({ article }) => {
         <Contents>
           <LikeNum>좋아요 {article.postLikeCount}개</LikeNum>
           <Content>
-            <span>dd</span>{' '}
+            <span>dd</span>
             {article.content.split('\n').map((line, i) => {
               return (
                 <React.Fragment key={i}>

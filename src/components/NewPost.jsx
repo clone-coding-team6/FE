@@ -49,15 +49,17 @@ const NewPost = ({ modalClose }) => {
       content: content,
     };
 
-    // files.map((file, i) => {
-    //   formData.append('multipartFile', files[i]);
-    // });
-    files.forEach((file) => {
-      formData.append('data', JSON.stringify(newFormVal));
-      formData.append('multipartFile', file);
+    files.map((file, i) => {
+      formData.append('file', files[i]);
     });
+    
+    // files.forEach((file) => {
+    //   formData.append('data', JSON.stringify(newFormVal));
+    //   formData.append('file', file);
+    // });
+
     formData.append(
-      'dto',
+      'data',
       new Blob([JSON.stringify(newFormVal)], { type: 'application/json' })
     );
 
@@ -118,7 +120,7 @@ const NewPost = ({ modalClose }) => {
             <UserProfile>
               <img src={defaultImg} alt='유저 프로필'></img>
             </UserProfile>
-            <StText>{nick}</StText>
+            {/* <StText>{nick}</StText> */}
           </StNewPostName>
           <StTextarea
             placeholder='문구 입력...'

@@ -17,15 +17,14 @@ export const __createComment = createAsyncThunk(
   'createComment',
   async (payload, thunkAPI) => {
     try {
-      // console.log(payload);
-      const id =parseInt(payload.postId);
+      
       const {data} = await instance.post(
-        `/api/comment/?postId=${id}`,
+        `/api/comment/?postId=${payload.postId}`,
         {content:payload.content},
         config
       );
       console.log(data);
-      return thunkAPI.dispatch(__readOneArticle(payload.postId));
+      return thunkAPI.dispatch(__readArticles());
       // return thunkAPI.fulfillWithValue(data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -49,18 +48,18 @@ export const commentSlice = createSlice({
   reducers: {},
   extraReducers: {
     // 생성
-    [__createComment.pending]: (state) => {
-      state.isLoading = true;
-    },
-    [__createComment.fulfilled]: (state, action) => {
-      state.isLoading = false;
-      state.comments.push(action.payload);
-      console.log(action.payload);
-    },
-    [__createComment.rejected]: (state, action) => {
-      state.isLoading = false;
-      state.error = action.payload.message;
-    },
+    // [__createComment.pending]: (state) => {
+    //   state.isLoading = true;
+    // },
+    // [__createComment.fulfilled]: (state, action) => {
+    //   state.isLoading = false;
+    //   state.comments.push(action.payload);
+    //   console.log(action.payload);
+    // },
+    // [__createComment.rejected]: (state, action) => {
+    //   state.isLoading = false;
+    //   state.error = action.payload.message;
+    // },
     // 전체 조회
     // [__readArticles.pending]: (state) => {
     //   state.isLoading = true;

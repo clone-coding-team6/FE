@@ -31,7 +31,8 @@ export const __createArticles = createAsyncThunk(
         formConfig
       );
       console.log('업로드!!', data.data);
-      return thunkAPI.fulfillWithValue(data.data);
+      // return thunkAPI.fulfillWithValue(data.data);
+      return thunkAPI.dispatch(__readArticles());
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -78,7 +79,8 @@ export const __deleteArticles = createAsyncThunk(
         `/api/posts/${payload}`,
         config
       );
-      return thunkAPI.fulfillWithValue(data.data);
+      // return thunkAPI.fulfillWithValue(data.data);
+      return thunkAPI.dispatch(__readArticles());
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -91,6 +93,7 @@ export const __likeArticle = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       // 기존 방식으로 접근 불가능. payload에 hearder가 담기는 문제 발생
+      console.log(payload);
       const data = await instance({
         method: 'post',
         url: `/api/posts/likes/${payload}`,
@@ -99,7 +102,8 @@ export const __likeArticle = createAsyncThunk(
           Authorization: getCookie('ACCESS_TOKEN'),
         },
       });
-      return thunkAPI.fulfillWithValue(data.data);
+      return thunkAPI.dispatch(__readArticles());
+      // return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -164,9 +168,11 @@ export const articleSlice = createSlice({
     },
     [__deleteArticles.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.articles = state.articles.filter(
-        (article) => article.id !== action.payload
-      );
+        // const target = state.articles.filter(
+        // (article) => article.postId !== action.payload);
+        // state.articles = target;
+      
+        
     },
     [__deleteArticles.rejected]: (state, action) => {
       state.isLoading = false;
@@ -179,7 +185,7 @@ export const articleSlice = createSlice({
     },
     [__likeArticle.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.articles = action.payload;
+      // state.articles = action.payload;
     },
     [__likeArticle.rejected]: (state, action) => {
       state.isLoading = false;

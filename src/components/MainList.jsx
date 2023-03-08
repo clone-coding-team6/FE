@@ -12,9 +12,9 @@ import { getCookie } from '../shared/Cookie';
 const MainList = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const data = useSelector((state) => state.article.articles);
-  const articles = data.data;
-  // console.log(data);
+  const articles = useSelector((state) => state.article.articles.data);
+  
+  console.log(articles);
   const { isLoading } = useSelector((state) => state.article);
 
   useEffect(() => {
