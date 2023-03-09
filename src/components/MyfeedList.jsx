@@ -4,10 +4,22 @@ import MyfeedCard from './MyfeedCard';
 import { ReactComponent as IconPost } from '../assets/icon/icon-post.svg';
 import { ReactComponent as IconHeart } from '../assets/icon/icon-small-heart.svg';
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCookie } from '../shared/Cookie';
+
 
 const MyfeedList = () => {
-  const [selectCategory, setSelectCategory] = useState(true);
 
+  const nick = getCookie('nickname');
+  const [selectCategory, setSelectCategory] = useState(true);
+  const articles = useSelector((state) => state.article.articles.data);
+  const myArticles = articles.filter((article)=> article.nickname == nick);
+  console.log(myArticles);
+  
+   const img = myArticles.map((article)=>article.imageList);
+   console.log(img);
+  
+   
   const feedImg = [
     {
       id: 1,
@@ -54,8 +66,8 @@ const MyfeedList = () => {
         </StCategory>
       </StCategories>
       <StFeedList>
-        {feedImg.map((feed) => (
-          <MyfeedCard key={feed.id} feed={feed} />
+        {img.map((feed,id) => (
+          <MyfeedCard key={id} feed={feed} />
         ))}
       </StFeedList>
     </StMyFeed>

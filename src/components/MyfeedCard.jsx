@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const MyfeedCard = ({ feed }) => {
   return (
     <StCardBox>
-      <img src={feed.imgUrl} alt='내 게시물 이미지' />
+      <img src={feed} alt='내 게시물 이미지' />
     </StCardBox>
   );
 };

@@ -1,8 +1,13 @@
 import styled from 'styled-components';
 import defaultImg from '../assets/img/img-profile.jpg';
 import { colors } from '../theme/theme';
+import { getCookie } from '../shared/Cookie';
+
 
 const MyfeedProfile = () => {
+
+  const nick = getCookie('nickname');
+  
   return (
     <StMyfeedProfile>
       <ProfileContainer>
@@ -12,7 +17,7 @@ const MyfeedProfile = () => {
       </ProfileContainer>
 
       <StProfileBox>
-        <StName>jooni</StName>
+        <StName>{nick}</StName>
         <StProfile>
           <StProfileText>
             게시물<span>4</span>

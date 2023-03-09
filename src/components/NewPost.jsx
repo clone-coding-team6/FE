@@ -94,7 +94,7 @@ const NewPost = ({ modalClose }) => {
               <IconMedia />
               <p>사진과 동영상을 여기에 끌어다 놓으세요</p>
               <StButton>
-                {/* <input {...getInputProps()} /> */}
+                <input {...getInputProps()} />
                 컴퓨터에서 선택
               </StButton>
             </StImageTab>
@@ -106,7 +106,8 @@ const NewPost = ({ modalClose }) => {
                 pagination={true}
                 modules={[Pagination, Navigation]}
               >
-                {files.map((file) => (
+                {
+                files.map((file) => (
                   <SwiperSlide key={file.path}>
                     <UploadImage src={file.preview} alt='업로드 이미지' />
                   </SwiperSlide>

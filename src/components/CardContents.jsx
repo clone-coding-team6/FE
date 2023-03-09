@@ -65,7 +65,11 @@ const CardContents = ({ oneArticle }) => {
                 style={{ width: '100%' }}
               />
             </UserImg>
-            <UserName>{nick}</UserName>
+            <UserName>{nickname}</UserName>
+            <UserPost>
+                {content}
+              {/* <UploadTime>{timeMsg}</UploadTime> */}
+            </UserPost>
           </UserProfile>
           <IconContainer>
             {nick === nickname && (
@@ -76,19 +80,19 @@ const CardContents = ({ oneArticle }) => {
 
         <BoardBody>
           <Contents>
-            <UserImg>
+            {/* <UserImg>
               <img
                 src={defaultImg}
                 alt='프로필사진'
                 style={{ width: '100%' }}
               />
-            </UserImg>
+            </UserImg> */}
             <UserPost>
-              <Content>
+              {/* <Content>
                 <span>{nickname}</span>
                 {content}
-              </Content>
-              <UploadTime>{timeMsg}</UploadTime>
+              </Content> */}
+              {/* <UploadTime>{timeMsg}</UploadTime> */}
             </UserPost>
           </Contents>
 

@@ -7,7 +7,13 @@ import { ReactComponent as IconLogo } from '../assets/icon/icon-logo.svg';
 import { colors } from '../theme/theme';
 import { getCookie, setCookie } from '../shared/Cookie';
 import instance from "../api/instance";
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  __readArticles,
+  
+} from '../redux/modules/articleSlice';
 const Login = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [disabledBtn, setDisabledBtn] = useState(true);
@@ -32,12 +38,23 @@ const Login = () => {
         loginVal
       );
       console.log(response);
-      setCookie('ACCESS_TOKEN', response.headers.authorization);
-      setCookie('nickname', response.data.data);
-      getCookie('ACCESS_TOKEN');
-      navigate('/');
+      if(response.data.data!=null){
+        setCookie('ACCESS_TOKEN', response.headers.authorization);
+        setCookie('nickname', response.data.data);
+        getCookie('ACCESS_TOKEN');
+        navigate('/');
+        dispatch(__readArticles());
+      }
+      else{
+        alert('로그인 실패');
+        navigate('/login');
+
+      }
+      
     } catch (error) {
       setErrorMsg(error.response.data.errorMessage);
+      
+      
     }
   };
 
